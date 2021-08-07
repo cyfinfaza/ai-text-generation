@@ -6,7 +6,7 @@ import numpy as np
 from flask import Flask, request
 from flask_cors import CORS
 
-one_step_reloaded = tf.saved_model.load('one_step_telegram')
+one_step_reloaded = tf.saved_model.load('one_step_python')
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -16,8 +16,8 @@ def answer(history):
 	next_char = tf.constant([history])
 	result = [next_char]
 
-	while next_char != "\n":
-	# for i in range(1):
+	# while next_char != "\n":
+	for i in range(200):
 		next_char, states = one_step_reloaded.generate_one_step(next_char, states=states)
 		result.append(next_char)
 
